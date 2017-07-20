@@ -32,7 +32,7 @@
                                     </imageView>
                                 </subviews>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="82" sectionHeaderHeight="50" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HLn-lw-koG">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="82" sectionHeaderHeight="50" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HLn-lw-koG">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -73,6 +73,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="iconView" destination="cjO-hG-bSH" id="LMn-1V-AIu"/>
                                             <outlet property="label" destination="bcZ-lD-djo" id="wCz-EB-C0q"/>
                                         </connections>
                                     </tableViewCell>
@@ -114,6 +115,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="iconView" destination="sum-C6-jcP" id="en8-zC-0WH"/>
                                             <outlet property="label" destination="TPe-XX-IYj" id="13C-uv-KUr"/>
                                         </connections>
                                     </tableViewCell>
@@ -131,7 +133,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d7l-ex-D5s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="141.59999999999999" y="67.916041979010501"/>
+            <point key="canvasLocation" x="-620" y="867"/>
         </scene>
         <!--File Browser-->
         <scene sceneID="dTe-Ns-Hcy">

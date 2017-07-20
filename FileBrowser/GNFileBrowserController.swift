@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class GNFileBrowserController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class GNFileBrowserController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UIGestureRecognizerDelegate {
     var delegate:GNFileBrowserDelegate? {
         return (self.navigationController as? GNFileBrowser)?.fileBrowserDelegate
     }
@@ -34,13 +34,52 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         getContents()
         tableView.dataSource = self
         tableView.delegate = self
+        searchBar.delegate = self
         title = "보관함"
         if let d = currentDirectory {
             title = d
         }
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.onTapBG(_:)))
+        tapGesture.delegate = self
+        view.addGestureRecognizer(tapGesture)
+        tableView.addSubview(emptyView)
+        searchBar.frame.size.height = 40
+        emptyView.frame.size.height = tableView.frame.height - searchBar.frame.height
     }
-    var fileList:[GNFile] = []
-    var directorys:[GNFile] = []
+    var _fileList:[GNFile] = []
+    var fileList:[GNFile] {
+        set {
+            _fileList = newValue
+        }
+        get {
+            if let searchText = searchBar.text {
+                if searchText.isEmpty == false {
+                    return _fileList.filter({ (file) -> Bool in
+                        return file.name.lowercased().contains(searchText.lowercased())
+                    })
+                }
+            }
+            return _fileList
+        }
+    }
+    
+    var _directorys:[GNFile] = []
+    var directorys:[GNFile] {
+        set {
+            _directorys = newValue
+        }
+        get {
+            if let searchText = searchBar.text {
+                if searchText.isEmpty == false {
+                    return _directorys.filter({ (file) -> Bool in
+                        return file.name.lowercased().contains(searchText.lowercased())
+                    })
+                }
+            }
+            return _directorys
+        }
+    }
+    
     
     var documentPath:String? {
         if let url = FileManager.default.urls(for: .documentDirectory, in:.userDomainMask).first {
@@ -67,19 +106,19 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 debugPrint("------")
                 let attributes = try FileManager.default.attributesOfItem(atPath:"\(documentPath)/\(filename)")
                 debugPrint(attributes)
-                debugPrint("------")
-                let date = attributes[FileAttributeKey.creationDate] as? Date
-                let type = attributes[FileAttributeKey.type] as! String
                 let file = GNFile()
                 file.name = filename
-                file.creationDate = date
-                file.type = type
+                file.creationDate = attributes[FileAttributeKey.creationDate] as? Date
+                file.type = attributes[FileAttributeKey.type] as! String
+                file.path = "\(documentPath)/\(filename)"
+                
                 switch file.fileType {
                 case .File:
                     fileList.append(file)
                 case .Directory:
                     directorys.append(file)
                 }
+                
                 debugPrint("------")
             }
             
@@ -95,7 +134,6 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         emptyView.isHidden = directorys.count > 0 || fileList.count > 0
-        tableView.isHidden = !emptyView.isHidden
         switch section {
         case 0:
             return directorys.count
@@ -230,5 +268,19 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             
         }))
         return actions
+    }
+    
+    //UIGestureDelegate
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return searchBar.isFirstResponder
+    }
+    
+    
+    //SearchBarDelegate
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        tableView.reloadData()
+    }
+    func onTapBG(_ gesture:UITapGestureRecognizer) {
+        searchBar.resignFirstResponder()
     }
 }
