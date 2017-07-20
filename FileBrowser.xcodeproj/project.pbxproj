@@ -12,6 +12,12 @@
 		13387BCA1F2068B700F2FB88 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13387BC81F2068B700F2FB88 /* Main.storyboard */; };
 		13387BCC1F2068B800F2FB88 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13387BCB1F2068B800F2FB88 /* Assets.xcassets */; };
 		13387BCF1F2068B800F2FB88 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13387BCD1F2068B800F2FB88 /* LaunchScreen.storyboard */; };
+		13387BD71F2068D700F2FB88 /* GNFileBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13387BD61F2068D700F2FB88 /* GNFileBrowser.storyboard */; };
+		13387BD91F2069AB00F2FB88 /* GNFileBrowserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13387BD81F2069AB00F2FB88 /* GNFileBrowserController.swift */; };
+		13DF3C141F207FBA001A0A6A /* GNFileBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF3C131F207FBA001A0A6A /* GNFileBrowser.swift */; };
+		13DF3C161F207FD4001A0A6A /* GNFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF3C151F207FD4001A0A6A /* GNFile.swift */; };
+		13DF3C181F207FF8001A0A6A /* GNFileBrowserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF3C171F207FF8001A0A6A /* GNFileBrowserDelegate.swift */; };
+		13DF3C1B1F20809B001A0A6A /* GNFileBrowserFileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DF3C1A1F20809B001A0A6A /* GNFileBrowserFileTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +28,12 @@
 		13387BCB1F2068B800F2FB88 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		13387BCE1F2068B800F2FB88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13387BD01F2068B800F2FB88 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13387BD61F2068D700F2FB88 /* GNFileBrowser.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = GNFileBrowser.storyboard; sourceTree = "<group>"; };
+		13387BD81F2069AB00F2FB88 /* GNFileBrowserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GNFileBrowserController.swift; sourceTree = "<group>"; };
+		13DF3C131F207FBA001A0A6A /* GNFileBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GNFileBrowser.swift; sourceTree = "<group>"; };
+		13DF3C151F207FD4001A0A6A /* GNFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GNFile.swift; sourceTree = "<group>"; };
+		13DF3C171F207FF8001A0A6A /* GNFileBrowserDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GNFileBrowserDelegate.swift; sourceTree = "<group>"; };
+		13DF3C1A1F20809B001A0A6A /* GNFileBrowserFileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GNFileBrowserFileTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,8 +72,22 @@
 				13387BCB1F2068B800F2FB88 /* Assets.xcassets */,
 				13387BCD1F2068B800F2FB88 /* LaunchScreen.storyboard */,
 				13387BD01F2068B800F2FB88 /* Info.plist */,
+				13DF3C191F208065001A0A6A /* GNFileBrowser */,
 			);
 			path = FileBrowser;
+			sourceTree = "<group>";
+		};
+		13DF3C191F208065001A0A6A /* GNFileBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				13387BD61F2068D700F2FB88 /* GNFileBrowser.storyboard */,
+				13DF3C151F207FD4001A0A6A /* GNFile.swift */,
+				13DF3C131F207FBA001A0A6A /* GNFileBrowser.swift */,
+				13DF3C171F207FF8001A0A6A /* GNFileBrowserDelegate.swift */,
+				13387BD81F2069AB00F2FB88 /* GNFileBrowserController.swift */,
+				13DF3C1A1F20809B001A0A6A /* GNFileBrowserFileTableViewCell.swift */,
+			);
+			name = GNFileBrowser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +151,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13387BCF1F2068B800F2FB88 /* LaunchScreen.storyboard in Resources */,
+				13387BD71F2068D700F2FB88 /* GNFileBrowser.storyboard in Resources */,
 				13387BCC1F2068B800F2FB88 /* Assets.xcassets in Resources */,
 				13387BCA1F2068B700F2FB88 /* Main.storyboard in Resources */,
 			);
@@ -137,8 +164,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13387BD91F2069AB00F2FB88 /* GNFileBrowserController.swift in Sources */,
+				13DF3C161F207FD4001A0A6A /* GNFile.swift in Sources */,
 				13387BC71F2068B700F2FB88 /* ViewController.swift in Sources */,
 				13387BC51F2068B700F2FB88 /* AppDelegate.swift in Sources */,
+				13DF3C1B1F20809B001A0A6A /* GNFileBrowserFileTableViewCell.swift in Sources */,
+				13DF3C181F207FF8001A0A6A /* GNFileBrowserDelegate.swift in Sources */,
+				13DF3C141F207FBA001A0A6A /* GNFileBrowser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,6 +334,7 @@
 				13387BD51F2068B800F2FB88 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
