@@ -193,12 +193,40 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         return true
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        var file:GNFile!
+        switch indexPath.section {
+        case 0:
+            file = directorys[indexPath.row]
+        default:
+            file = fileList[indexPath.row]
+        }
+        
         var actions:[UITableViewRowAction] = []
         actions.append(UITableViewRowAction(style: .default, title: "delete", handler: { (action, indexPath) in
             
         }))
         
         actions.append(UITableViewRowAction(style: .normal, title: "rename", handler: { (action, indexPath) in
+            let vc = UIAlertController(title: "rename", message: nil, preferredStyle: .alert)
+            vc.addTextField(configurationHandler: { (textField) in
+                textField.text = file.name
+            })
+            vc.addAction(UIAlertAction(title: "confirm", style: .default, handler: { (action) in
+                guard let newName = vc.textFields?.first?.text ,
+                let documentPath = self.documentPath
+                else {
+                    return
+                }
+                do {
+                    try FileManager.default.moveItem(atPath: "\(documentPath)/\(file.name)", toPath: "\(documentPath)/\(newName)")
+                } catch {
+                    print(error.localizedDescription)
+                }
+                self.getContents()
+                self.tableView.reloadData()
+            }))
+            vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            self.present(vc, animated: true, completion: nil)
             
         }))
         return actions
