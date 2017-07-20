@@ -11,6 +11,7 @@ import UIKit
 
 
 class GNFileBrowserController : UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate , UIGestureRecognizerDelegate {
+    
     var delegate:GNFileBrowserDelegate? {
         return (self.navigationController as? GNFileBrowser)?.fileBrowserDelegate
     }
@@ -151,10 +152,14 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             var identifire = "file"
             let file = fileList[indexPath.row]
             if let files = fileBrowser?.selectedFiles {
-                if let _ = files.index(of: file) {
+                if let _ =
+                    files.index(where: { (inFile) -> Bool in
+                        return inFile.path == file.path
+                    }) {
                     identifire = "fileSelect"
                 }
             }
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: identifire, for: indexPath) as! GNFileBrowserFileTableViewCell
             cell.loadData(file)
             return cell
@@ -180,18 +185,24 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             vc.currentDirectory = file.name
             navigationController?.pushViewController(vc, animated: true)
         default:
-            let file = fileList[indexPath.row]
-            if let files = fileBrowser?.selectedFiles {
-                if let idx = files.index(of: file) {
-                    fileBrowser?.selectedFiles.remove(at: idx)
+            DispatchQueue.main.async {
+                let file = self.fileList[indexPath.row]
+                if let files = self.fileBrowser?.selectedFiles {
+                    if let idx =
+                        files.index(where: { (inFile) -> Bool in
+                            return inFile.path == file.path
+                        }) {
+                        self.fileBrowser?.selectedFiles.remove(at: idx)
+                    }
+                    else {
+                        self.fileBrowser?.selectedFiles.append(file)
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                    }
                 }
-                else {
-                    fileBrowser?.selectedFiles.append(file)
-                }
-                tableView.reloadRows(at: [indexPath], with: .automatic)
+                
             }
-            
-            print(file.name)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -283,4 +294,5 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
     func onTapBG(_ gesture:UITapGestureRecognizer) {
         searchBar.resignFirstResponder()
     }
+    
 }
