@@ -32,12 +32,13 @@ class GNFile: NSObject {
         if FileManager.default.fileExists(atPath: path) == false {
             return nil
         }
-        if let url = URL(string:path) {
+        if let url = Bundle.main.url(forAuxiliaryExecutable: path) {
             do {
-                return try Data(contentsOf: url)
+                let d =  try Data(contentsOf: url)
+                return d
             }
             catch {
-                print(error.localizedDescription)
+                debugPrint(error.localizedDescription)
             }
         }
         return nil
