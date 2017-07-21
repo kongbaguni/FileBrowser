@@ -14,7 +14,7 @@ class GNFileBrowser : UINavigationController {
     var limitFileSelect:Int = 0
     //검색창 placeHolder 정의
     var searchBarPlaceHolder:String = "search"
-    
+        
     var selectedFiles:[GNFile] = []
     var fileBrowserDelegate:GNFileBrowserDelegate? = nil
     static var viewController:GNFileBrowser {

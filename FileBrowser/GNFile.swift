@@ -59,4 +59,11 @@ class GNFile: NSObject {
         }
         return nil
     }
+    
+    func thumbImage(_ size:CGSize) -> UIImage? {
+        if let image = self.image {
+            return image.resizeImage(size)
+        }
+        return nil
+    }
 }

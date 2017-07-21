@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 class GNFileBrowserFileTableViewCell: UITableViewCell {
+    var thumbImageSize:CGSize = CGSize(width: 50, height: 50)
+    
     @IBOutlet var iconView: UIImageView!
     @IBOutlet var label: UILabel!
     func loadData(_ file:GNFile) {
         label.text = "\(file.name)"
-        if let image = file.image {
+        if let image = file.thumbImage(thumbImageSize) {
             iconView.image = image
         }
         else {
