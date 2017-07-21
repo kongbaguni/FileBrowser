@@ -27,6 +27,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
     }
     
     @IBOutlet var emptyView: UIView!
+    @IBOutlet var emptyViewLabel: UILabel!
     @IBOutlet var tableView:UITableView!
     @IBOutlet var searchBar:UISearchBar!
     
@@ -45,8 +46,16 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         view.addGestureRecognizer(tapGesture)
         tableView.addSubview(emptyView)
         searchBar.frame.size.height = 40
-        emptyView.frame.size.height = tableView.frame.height - searchBar.frame.height
+//        emptyView.frame.size.height = tableView.frame.height - searchBar.frame.height
+        
+        if searchBar.text == "" && directorys.count == 0 && fileList.count == 0 {
+            searchBar.isHidden = true
+        }
+        checkEmptyViewHidden()
+        setSearchBarPlaceHolder()
     }
+    
+    
     var _fileList:[GNFile] = []
     var fileList:[GNFile] {
         set {
@@ -134,7 +143,6 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        emptyView.isHidden = directorys.count > 0 || fileList.count > 0
         switch section {
         case 0:
             return directorys.count
@@ -172,6 +180,9 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let fileBrowser = self.fileBrowser else {
+            return
+        }
         switch indexPath.section {
         case 0:
             let file = directorys[indexPath.row]
@@ -195,6 +206,11 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                         self.fileBrowser?.selectedFiles.remove(at: idx)
                     }
                     else {
+                        if fileBrowser.limitFileSelect > 0 {
+                            if fileBrowser.selectedFiles.count >= fileBrowser.limitFileSelect {
+                                return
+                            }
+                        }                        
                         self.fileBrowser?.selectedFiles.append(file)
                     }
                     DispatchQueue.main.async {
@@ -297,10 +313,20 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
     
     //SearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        checkEmptyViewHidden()
         tableView.reloadData()
     }
     func onTapBG(_ gesture:UITapGestureRecognizer) {
         searchBar.resignFirstResponder()
     }
     
+    private func checkEmptyViewHidden() {
+        emptyView.isHidden = directorys.count > 0 || fileList.count > 0
+    }
+    
+    private func setSearchBarPlaceHolder() {
+        if let placeHolder = fileBrowser?.searchBarPlaceHolder {
+            self.searchBar.placeholder = placeHolder
+        }
+    }
 }
