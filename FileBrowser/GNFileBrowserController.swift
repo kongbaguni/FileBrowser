@@ -125,7 +125,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 file.creationDate = attributes[FileAttributeKey.creationDate] as? Date
                 file.type = attributes[FileAttributeKey.type] as! String
                 file.path = "\(documentPath)/\(filename)"
-                
+                file.size = attributes[FileAttributeKey.size] as! Int
                 switch file.fileType {
                 case .File:
                     fileList.append(file)

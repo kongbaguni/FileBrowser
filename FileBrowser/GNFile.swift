@@ -13,6 +13,7 @@ class GNFile: NSObject {
         case File
         case Directory
     }
+    var size:Int = 0
     var name:String = ""
     var creationDate:Date? = nil
     var type:String = ""
