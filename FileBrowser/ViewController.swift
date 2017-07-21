@@ -26,8 +26,8 @@ class ViewController: UIViewController, GNFileBrowserDelegate {
         present(controller, animated: true, completion: nil)
     }
     
-    func gnfilebrowser(pickup file: [GNFile]) {
-        
+    func gnfilebrowser(pickup files: [GNFile]) {
+        print(files)
         
     }
 }

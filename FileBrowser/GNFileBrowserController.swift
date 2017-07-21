@@ -54,6 +54,10 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         checkEmptyViewHidden()
         setSearchBarPlaceHolder()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fileBrowser?.setRightButton()
+    }
     
     
     var _fileList:[GNFile] = []

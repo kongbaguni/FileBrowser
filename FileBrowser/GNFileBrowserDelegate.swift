@@ -8,5 +8,5 @@
 
 import Foundation
 protocol GNFileBrowserDelegate {
-    func gnfilebrowser(pickup file:[GNFile])
+    func gnfilebrowser(pickup files:[GNFile])
 }
