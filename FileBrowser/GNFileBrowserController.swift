@@ -243,6 +243,9 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         return true
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard let documentPath = self.documentPath else {
+            return nil
+        }
         var file:GNFile!
         switch indexPath.section {
         case 0:
@@ -267,12 +270,16 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 else {
                     return
                 }
+                if newName.isEmpty {
+                    return
+                }
                 do {
                     try FileManager.default.moveItem(atPath: "\(documentPath)/\(file.name)", toPath: "\(documentPath)/\(newName)")
                 } catch {
                     print(error.localizedDescription)
                 }
-                self.getContents()
+                file.name = newName
+                file.path = "\(documentPath)/\(newName)"
                 self.tableView.reloadData()
             }))
             vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
