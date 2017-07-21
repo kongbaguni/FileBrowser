@@ -199,6 +199,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                     }
                     DispatchQueue.main.async {
                         self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                        self.fileBrowser?.setRightButton()
                     }
                 }
                 

@@ -21,7 +21,21 @@ class GNFileBrowser : UINavigationController {
         
     }
     
+    
+    func setRightButton() {
+        if selectedFiles.count > 0 {
+            navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(self.onTouchUPDoneBtn(_:)))
+        } else {
+            navigationBar.topItem?.rightBarButtonItem = nil
+        }
+    }
+    
     func onTouchUPCancelBtn(_ sender:UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
+    func onTouchUPDoneBtn(_ sender:UIBarButtonItem) {
+        fileBrowserDelegate?.gnfilebrowser(pickup: selectedFiles)
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
