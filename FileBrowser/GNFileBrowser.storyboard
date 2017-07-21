@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +12,7 @@
         <!--File Browser Controller-->
         <scene sceneID="Ivu-mL-wDJ">
             <objects>
-                <viewController storyboardIdentifier="browser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t3M-oJ-7jG" customClass="GNFileBrowserController" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="browser" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t3M-oJ-7jG" customClass="GNFileBrowserController" customModule="oitalk" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bse-6D-ham"/>
                         <viewControllerLayoutGuide type="bottom" id="CXV-XG-f7Z"/>
@@ -32,14 +31,14 @@
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="file" rowHeight="82" id="I4c-lT-5A6" customClass="GNFileBrowserFileTableViewCell" customModule="FileBrowser" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="99.5" width="375" height="82"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="file" rowHeight="82" id="I4c-lT-5A6" customClass="GNFileBrowserFileTableViewCell" customModule="oitalk" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I4c-lT-5A6" id="Cid-VS-Biv">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blue_icon_file_s" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-hG-bSH">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_file_n" translatesAutoresizingMaskIntoConstraints="NO" id="cjO-hG-bSH">
                                                     <rect key="frame" x="15" y="15" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="ALG-Lm-EQv"/>
@@ -67,14 +66,14 @@
                                             <outlet property="label" destination="bcZ-lD-djo" id="wCz-EB-C0q"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileSelect" rowHeight="82" id="0fN-ZA-XBp" customClass="GNFileBrowserFileTableViewCell" customModule="FileBrowser" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="181.5" width="375" height="82"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fileSelect" rowHeight="82" id="0fN-ZA-XBp" customClass="GNFileBrowserFileTableViewCell" customModule="oitalk" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="182" width="375" height="82"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0fN-ZA-XBp" id="bef-WX-esQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blue_icon_file_s" translatesAutoresizingMaskIntoConstraints="NO" id="sum-C6-jcP">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_file_n" translatesAutoresizingMaskIntoConstraints="NO" id="sum-C6-jcP">
                                                     <rect key="frame" x="15" y="15" width="50" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="DzN-Zf-CN9"/>
@@ -152,7 +151,7 @@
         <!--File Browser-->
         <scene sceneID="dTe-Ns-Hcy">
             <objects>
-                <navigationController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RaU-et-q1U" customClass="GNFileBrowser" customModule="FileBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="main" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RaU-et-q1U" customClass="GNFileBrowser" customModule="oitalk" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XjO-Jc-nJJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -167,8 +166,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blue_icon_file_s" width="26" height="20"/>
         <image name="btn_call_check_s" width="16" height="16"/>
         <image name="icon_exclamationmark" width="70" height="62"/>
+        <image name="icon_file_n" width="26" height="20"/>
     </resources>
 </document>

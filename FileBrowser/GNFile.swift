@@ -29,17 +29,20 @@ class GNFile: NSObject {
         }
         return .File
     }
+    var url:URL? {
+        return Bundle.main.url(forAuxiliaryExecutable: path)
+    }
     var data:Data? {
         if FileManager.default.fileExists(atPath: path) == false {
             return nil
         }
-        if let url = Bundle.main.url(forAuxiliaryExecutable: path) {
+        if let url = self.url {
             do {
                 let d =  try Data(contentsOf: url)
                 return d
             }
             catch {
-                debugPrint(error.localizedDescription)
+                
             }
         }
         return nil

@@ -19,7 +19,7 @@ class GNFileBrowserFileTableViewCell: UITableViewCell {
             iconView.image = image
         }
         else {
-            iconView.image = #imageLiteral(resourceName: "blue_icon_file_s")
+            iconView.image = #imageLiteral(resourceName: "icon_chat_file_n")
         }
         
     }

@@ -13,7 +13,7 @@ class GNFileBrowser : UINavigationController {
     //파일 선택 제한. 0은 무제한입니다.
     var limitFileSelect:Int = 0
     //검색창 placeHolder 정의
-    var searchBarPlaceHolder:String = "search"
+    var searchBarPlaceHolder:String = "search".localized
         
     var selectedFiles:[GNFile] = []
     var fileBrowserDelegate:GNFileBrowserDelegate? = nil
@@ -22,14 +22,19 @@ class GNFileBrowser : UINavigationController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.onTouchUPCancelBtn(_:)))
-        
+        navigationBar.titleTextAttributes =
+            [NSForegroundColorAttributeName:CM().color(ColorManager.ColorType.navigationTitleText),
+             NSFontAttributeName:UIFont.boldSystemFont(ofSize: 20)]
+        navigationBar.tintColor = CM().color(ColorManager.ColorType.navigationButtonText)
+        setDefaultStyle()
     }
     
     
     func setRightButton() {
         if selectedFiles.count > 0 {
-            navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "done", style: .plain, target: self, action: #selector(self.onTouchUPDoneBtn(_:)))
+            navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "done".localized, style: .plain, target: self, action: #selector(self.onTouchUPDoneBtn(_:)))
         } else {
             navigationBar.topItem?.rightBarButtonItem = nil
         }

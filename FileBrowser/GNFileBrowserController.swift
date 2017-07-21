@@ -37,7 +37,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         tableView.dataSource = self
         tableView.delegate = self
         searchBar.delegate = self
-        title = "보관함"
+        title = "locker".localized
         if let d = currentDirectory {
             title = d
         }
@@ -53,10 +53,12 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         }
         checkEmptyViewHidden()
         setSearchBarPlaceHolder()
+        searchBar.setOitalkStyle()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         fileBrowser?.setRightButton()
+        navigationController?.setDefaultStyle()
     }
     
     
@@ -114,12 +116,8 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             fileList.removeAll()
             directorys.removeAll()
             let list = try FileManager.default.contentsOfDirectory(atPath: documentPath)
-            debugPrint("------")
-            debugPrint(list)
             for filename in list {
-                debugPrint("------")
                 let attributes = try FileManager.default.attributesOfItem(atPath:"\(documentPath)/\(filename)")
-                debugPrint(attributes)
                 let file = GNFile()
                 file.name = filename
                 file.creationDate = attributes[FileAttributeKey.creationDate] as? Date
@@ -132,8 +130,6 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 case .Directory:
                     directorys.append(file)
                 }
-                
-                debugPrint("------")
             }
             
         }
@@ -263,9 +259,6 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         return true
     }
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        guard let documentPath = self.documentPath else {
-            return nil
-        }
         var file:GNFile!
         switch indexPath.section {
         case 0:
@@ -276,7 +269,32 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         
         var actions:[UITableViewRowAction] = []
         actions.append(UITableViewRowAction(style: .default, title: "delete", handler: { (action, indexPath) in
-            
+            let vc = UIAlertController(title: "delete", message: "\(file.name) 지웁니다", preferredStyle: .alert)
+            vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (action) in
+                do {
+                    try FileManager.default.removeItem(atPath: file.path)
+                    if let idx = self._fileList.index(of: file) {
+                        self._fileList.remove(at: idx)
+                        self.tableView.reloadSections(IndexSet(integer: 1), with: .automatic)
+                    }
+                    if let idx = self._directorys.index(of: file) {
+                        self._directorys.remove(at: idx)
+                        self.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                    }
+                    if let list = self.fileBrowser?.selectedFiles {
+                        if let idx = list.index(of: file) {
+                            self.fileBrowser?.selectedFiles.remove(at: idx)
+                            self.fileBrowser?.setRightButton()
+                        }
+                    }
+                    
+                }
+                catch {
+                    Toast.makeToast(error.localizedDescription)
+                }
+            }))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
+            self.present(vc, animated: true, completion: nil)
         }))
         
         actions.append(UITableViewRowAction(style: .normal, title: "rename", handler: { (action, indexPath) in
@@ -300,7 +318,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 }
                 file.name = newName
                 file.path = "\(documentPath)/\(newName)"
-                self.tableView.reloadData()
+                self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }))
             vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
             self.present(vc, animated: true, completion: nil)
@@ -308,7 +326,12 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         }))
         return actions
     }
-    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        print(scrollView.contentOffset.y)
+        if scrollView.contentOffset.y < -150 {
+            dismiss(animated: true, completion: nil)
+        }
+    }
     //UIGestureDelegate
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return searchBar.isFirstResponder
