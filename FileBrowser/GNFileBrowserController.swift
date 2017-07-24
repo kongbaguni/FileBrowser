@@ -153,7 +153,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! GNFileBrowserFileTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "directory", for: indexPath) as! GNFileBrowserFileTableViewCell
             cell.loadData(directorys[indexPath.row])
             return cell
         default:

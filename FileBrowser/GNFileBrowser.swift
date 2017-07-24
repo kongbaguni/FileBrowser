@@ -24,10 +24,10 @@ class GNFileBrowser : UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.onTouchUPCancelBtn(_:)))
-        navigationBar.titleTextAttributes =
-            [NSForegroundColorAttributeName:CM().color(ColorManager.ColorType.navigationTitleText),
-             NSFontAttributeName:UIFont.boldSystemFont(ofSize: 20)]
-        navigationBar.tintColor = CM().color(ColorManager.ColorType.navigationButtonText)
+//        navigationBar.titleTextAttributes =
+//            [NSForegroundColorAttributeName:CM().color(ColorManager.ColorType.navigationTitleText),
+//             NSFontAttributeName:UIFont.boldSystemFont(ofSize: 20)]
+//        navigationBar.tintColor = CM().color(ColorManager.ColorType.navigationButtonText)
         setDefaultStyle()
     }
     

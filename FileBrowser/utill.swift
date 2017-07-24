@@ -8,6 +8,64 @@
 
 import Foundation
 import UIKit
+extension String
+{
+    var localized: String {
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
+    }
+}
+extension UISearchBar {
+    /** 스토리보드에 등록한 서치바를 오이톡 스타일로 수정하기.*/
+    func setOitalkStyle(_ placeholder:String = "search".localized) {
+        func setLineFrame(_ lineView:UIView) {
+            lineView.frame = CGRect(x: 0, y: frame.height-1, width: frame.width, height: 1)
+        }
+        
+        searchBarStyle = .prominent
+        backgroundImage = UIImage()
+        backgroundColor = UIColor.white
+        self.placeholder = placeholder
+        
+        for view in self.subviews {
+            if view.tag == 1234 {
+                setLineFrame(view)
+                return
+            }
+        }
+        let lineView = UIView()
+        lineView.tag = 1234
+        setImage(UIImage(named: "icon_search_icon"),
+                 for: UISearchBarIcon.search, state: UIControlState())
+        setImage(UIImage(named: "icon_search_icon"),
+                 for: UISearchBarIcon.search, state: UIControlState.selected)
+        
+        addSubview(lineView)
+//        lineView.backgroundColor = ColorManager.sharedManager().color(ColorManager.ColorType.navigationBG)
+        //        lineView.backgroundColor = ColorPreset.BG.GREEN
+        setLineFrame(lineView)
+    }
+}
+
+extension UINavigationBar {
+    /** 공통 네비바 스타일로 세팅 (녹색바탕에 하얀글씨)*/
+    func setMenuStyle() {
+//        titleTextAttributes =
+//            [NSForegroundColorAttributeName:CM().color(ColorManager.ColorType.navigationTitleText),
+//             NSFontAttributeName:UIFont.boldSystemFont(ofSize: 20)]
+//        tintColor = CM().color(ColorManager.ColorType.navigationTitleText)
+//        backgroundColor = CM().color(ColorManager.ColorType.navigationBG)
+        
+        isTranslucent = false
+        topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        isHidden = false
+    }
+}
+extension UINavigationController {
+    func setDefaultStyle() {
+        navigationBar.setMenuStyle()
+    }
+}
+
 
 extension UIImage
 {
@@ -198,5 +256,46 @@ extension UIImage
         let cgImage: CGImage = ctx.makeImage()!
         
         return UIImage(cgImage: cgImage)
+    }
+}
+
+//Toast.makeToast
+struct Toast {
+    static func makeToast(_ message:String) {
+        debugPrint(message)        
+    }
+}
+
+
+
+extension Date
+{
+    func toString(_ format:String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", locale:String? = nil)->String
+    {
+        
+        let dateFormatter = DateFormatter()
+        var identifier = (Foundation.Locale.current as NSLocale).object(forKey: NSLocale.Key.identifier) as! String
+        if let l = locale {
+            identifier = l
+        }
+        dateFormatter.locale = Foundation.Locale(identifier: identifier)
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: self)
+    }
+    
+    func currentDate()->String? {
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        return dateFormatter.string(from: date)
+    }
+    
+    
+    /** 태평양시각으로 출력하기.*/
+    func toUtcString(_ format:String = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")->String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.timeZone = TimeZone(identifier: "UTC")
+        return dateFormatter.string(from: self)
     }
 }

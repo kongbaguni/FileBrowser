@@ -13,13 +13,22 @@ class GNFileBrowserFileTableViewCell: UITableViewCell {
     
     @IBOutlet var iconView: UIImageView!
     @IBOutlet var label: UILabel!
+    @IBOutlet var timeLabel: UILabel!
     func loadData(_ file:GNFile) {
         label.text = "\(file.name)"
+        if let date = file.creationDate {
+            timeLabel.text = date.toUtcString("yyyy-MM-dd ah:mm")
+        }
         if let image = file.thumbImage(thumbImageSize) {
             iconView.image = image
         }
         else {
-            iconView.image = #imageLiteral(resourceName: "icon_chat_file_n")
+            switch file.fileType {
+            case .Directory:
+                iconView.image = #imageLiteral(resourceName: "Folder-icon")
+            default:
+                iconView.image = #imageLiteral(resourceName: "icon_view_01_doc")
+            }
         }
         
     }
