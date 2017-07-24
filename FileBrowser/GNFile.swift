@@ -68,6 +68,31 @@ class GNFile: NSObject {
         if let image = self.image {
             return image.resizeImage(size)
         }
+
+        if let ext = name.lowercased().components(separatedBy: ".").last {
+            switch ext {
+            case "doc":
+                return #imageLiteral(resourceName: "icon_view_01_doc")
+                //비디오
+            case "mp4", "mpeg", "mpg","avi", "mov", "rm", "vob", "asx", "mmp":
+                return #imageLiteral(resourceName: "icon_view_02_avi")
+                //오디오
+            case "mp2","mp3","wav","flac","wma","aac","ac3","m3u","ogg", "ra", "ram", "vob", "voc":
+                return #imageLiteral(resourceName: "icon_view_03_mp3")
+                //문서
+            case "doc", "odt", "gdoc":
+                return #imageLiteral(resourceName: "icon_view_04_word")
+                //스프레트시트
+            case "xlsx", "pxl", "xlc", "xls", "xlt", "ods", "gsheet":
+                return #imageLiteral(resourceName: "icon_view_05_excel")
+                //프레젠테이션
+            case "pptx", "ppt", "pot", "pps", "ppv", "odp":
+                return #imageLiteral(resourceName: "icon_view_06_ppt")
+            default:
+                break
+                
+            }
+        }
         return nil
     }
 }
