@@ -230,12 +230,12 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             if directorys.count == 0 {
                 return nil
             }
-            return "Directorys"
+            return "Directorys".localized
         default:
             if fileList.count == 0 {
                 return nil
             }
-            return "Files"
+            return "Files".localized
         }
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -268,8 +268,8 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
         }
         
         var actions:[UITableViewRowAction] = []
-        actions.append(UITableViewRowAction(style: .default, title: "delete", handler: { (action, indexPath) in
-            let vc = UIAlertController(title: "delete", message: "\(file.name) 지웁니다", preferredStyle: .alert)
+        actions.append(UITableViewRowAction(style: .default, title: "delete".localized, handler: { (action, indexPath) in
+            let vc = UIAlertController(title: "file delete".localized, message: "file delete message".localized, preferredStyle: .alert)
             vc.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { (action) in
                 do {
                     try FileManager.default.removeItem(atPath: file.path)
@@ -297,8 +297,8 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
             self.present(vc, animated: true, completion: nil)
         }))
         
-        actions.append(UITableViewRowAction(style: .normal, title: "rename", handler: { (action, indexPath) in
-            let vc = UIAlertController(title: "rename", message: nil, preferredStyle: .alert)
+        actions.append(UITableViewRowAction(style: .normal, title: "change".localized, handler: { (action, indexPath) in
+            let vc = UIAlertController(title: "file rename".localized, message: nil, preferredStyle: .alert)
             vc.addTextField(configurationHandler: { (textField) in
                 textField.text = file.name
             })
@@ -320,7 +320,7 @@ class GNFileBrowserController : UIViewController, UITableViewDataSource, UITable
                 file.path = "\(documentPath)/\(newName)"
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
             }))
-            vc.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            vc.addAction(UIAlertAction(title: "cancel".localized, style: .cancel, handler: nil))
             self.present(vc, animated: true, completion: nil)
             
         }))
